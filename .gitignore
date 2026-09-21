@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+
+# Build output
+**/bin/
+**/obj/
+
+# Visual Studio user files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core development secrets
+appsettings.Development.json
+
+# OS files
+.DS_Store
+Thumbs.db
