@@ -18,40 +18,36 @@ builder.Services.AddSwaggerGen();
 
 
 var databaseConnectionString =
-    builder.Configuration.GetConnectionString(
-        "DefaultConnection");
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? builder.Configuration["ConnectionStrings_DefaultConnection"];
 
 if (string.IsNullOrWhiteSpace(databaseConnectionString))
 {
     throw new InvalidOperationException(
-        "ConnectionStrings:DefaultConnection is not configured.");
+        "Connection string is not configured.");
 }
 
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options =>
-    {
-        options.UseSqlServer(
-            databaseConnectionString,
-            sqlOptions =>
-            {
-                sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 5,
-                    maxRetryDelay:
-                        TimeSpan.FromSeconds(10),
-                    errorNumbersToAdd: null);
-            });
-    });
-
-
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(
+        databaseConnectionString,
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null);
+        });
+});
 
 var blobConnectionString =
-    builder.Configuration[
-        "AzureBlobStorage:ConnectionString"];
+    builder.Configuration["AzureBlobStorage:ConnectionString"]
+    ?? builder.Configuration["AzureBlobStorageConnectionString"];
 
 if (string.IsNullOrWhiteSpace(blobConnectionString))
 {
     throw new InvalidOperationException(
-        "AzureBlobStorage:ConnectionString is not configured.");
+        "Azure Blob Storage connection string is not configured.");
 }
 
 builder.Services.AddSingleton(

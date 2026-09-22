@@ -14,12 +14,13 @@ public sealed class AzureBlobStorageService
         IConfiguration configuration)
     {
         var containerName =
-            configuration["AzureBlobStorage:ContainerName"];
+        configuration["AzureBlobStorage:ContainerName"]
+        ?? configuration["AzureBlobStorageContainerName"];
 
         if (string.IsNullOrWhiteSpace(containerName))
         {
             throw new InvalidOperationException(
-                "AzureBlobStorage:ContainerName is not configured.");
+                "Azure Blob Storage container name is not configured.");
         }
 
         _containerClient =
