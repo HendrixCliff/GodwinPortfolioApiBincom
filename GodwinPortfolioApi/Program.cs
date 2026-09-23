@@ -1,6 +1,8 @@
 using Azure.Storage.Blobs;
 using GodwinPortfolioApi.Data;
 using GodwinPortfolioApi.Repositories;
+using System.Reflection;
+using Microsoft.OpenApi.Models;
 using GodwinPortfolioApi.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +15,26 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Godwin Portfolio API",
+        Version = "v1",
+        Description = "RESTful Web API for Godwin Chukwuebuka Igwegbe's developer portfolio, including profile information, experience, projects, skills, gallery management, and tax calculation.",
+        Contact = new OpenApiContact
+        {
+            Name = "Godwin Chukwuebuka Igwegbe",
+            Email = "godwincliff10@gmail.com",
+            Url = new Uri("https://github.com/HendrixCliff")
+        }
+    });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    options.IncludeXmlComments(xmlPath);
+});
 
 
 
