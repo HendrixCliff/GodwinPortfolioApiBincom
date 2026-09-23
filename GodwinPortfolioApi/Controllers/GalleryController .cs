@@ -15,7 +15,11 @@ public sealed class GalleryController : ControllerBase
     {
         _galleryService = galleryService;
     }
-
+    /// <summary>
+    /// Retrieves all gallery images.
+    /// </summary>
+    /// <returns>A collection of gallery images.</returns>
+    /// <response code="200">Gallery images were successfully retrieved.</response>
     [HttpGet]
     [ProducesResponseType(
         typeof(IReadOnlyList<GalleryItemDto>),
@@ -30,7 +34,13 @@ public sealed class GalleryController : ControllerBase
 
         return Ok(items);
     }
-
+    /// <summary>
+    /// Retrieves a gallery image by its identifier.
+    /// </summary>
+    /// <param name="id">The unique gallery item identifier.</param>
+    /// <returns>The requested gallery image.</returns>
+    /// <response code="200">The gallery item was found.</response>
+    /// <response code="404">No gallery item exists with the specified identifier.</response>
     [HttpGet("{id:int}")]
     [ProducesResponseType(
         typeof(GalleryItemDto),
@@ -57,7 +67,13 @@ public sealed class GalleryController : ControllerBase
 
         return Ok(item);
     }
-
+    /// <summary>
+    /// Retrieves a gallery image by its identifier.
+    /// </summary>
+    /// <param name="id">The unique gallery item identifier.</param>
+    /// <returns>The requested gallery image.</returns>
+    /// <response code="200">The gallery item was found.</response>
+    /// <response code="404">No gallery item exists with the specified identifier.</response>
     [HttpPost]
     [Consumes("multipart/form-data")]
     [ProducesResponseType(
@@ -87,7 +103,12 @@ public sealed class GalleryController : ControllerBase
             new { id = result.Item!.Id },
             result.Item);
     }
-
+    /// <summary>
+    /// Deletes a gallery image.
+    /// </summary>
+    /// <param name="id">The unique gallery item identifier.</param>
+    /// <response code="204">The gallery item was successfully deleted.</response>
+    /// <response code="404">The gallery item was not found.</response>
     [HttpDelete("{id:int}")]
     [ProducesResponseType(
         StatusCodes.Status204NoContent)]

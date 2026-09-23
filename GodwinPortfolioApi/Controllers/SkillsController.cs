@@ -8,6 +8,11 @@ namespace GodwinPortfolioApi.Controllers;
 [Route("api/[controller]")]
 public sealed class SkillsController : ControllerBase
 {
+    /// <summary>
+    /// Retrieves the technical skills grouped by category.
+    /// </summary>
+    /// <returns>A collection of technical skill groups.</returns>
+    /// <response code="200">Skills were successfully retrieved.</response>
     [HttpGet]
     [ProducesResponseType(
         typeof(IEnumerable<SkillGroup>),

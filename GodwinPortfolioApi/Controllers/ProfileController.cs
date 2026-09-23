@@ -8,6 +8,11 @@ namespace GodwinPortfolioApi.Controllers;
 [Route("api/[controller]")]
 public sealed class ProfileController : ControllerBase
 {
+    /// <summary>
+    /// Retrieves the portfolio owner's profile information.
+    /// </summary>
+    /// <returns>The portfolio profile.</returns>
+    /// <response code="200">Profile information was successfully retrieved.</response>
     [HttpGet]
     [ProducesResponseType(
         typeof(PortfolioProfile),

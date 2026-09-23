@@ -19,6 +19,17 @@ public sealed class TaxCalculatorController
             taxCalculatorService;
     }
 
+    /// <summary>
+    /// Calculates annual and monthly personal income tax.
+    /// </summary>
+    /// <remarks>
+    /// The calculation applies the configured progressive tax bands
+    /// and eligible deductions supplied in the request.
+    /// </remarks>
+    /// <param name="request">Income, rent and eligible deductions.</param>
+    /// <returns>The calculated tax breakdown.</returns>
+    /// <response code="200">Tax was successfully calculated.</response>
+    /// <response code="400">The supplied financial values are invalid.</response>
     [HttpPost]
     [ProducesResponseType(
         typeof(TaxCalculatorResponse),

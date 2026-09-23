@@ -8,6 +8,11 @@ namespace GodwinPortfolioApi.Controllers;
 [Route("api/[controller]")]
 public sealed class ProjectsController : ControllerBase
 {
+    /// <summary>
+    /// Retrieves the projects included in the portfolio.
+    /// </summary>
+    /// <returns>A collection of portfolio projects.</returns>
+    /// <response code="200">Projects were successfully retrieved.</response>
     [HttpGet]
     [ProducesResponseType(
         typeof(IEnumerable<Project>),
